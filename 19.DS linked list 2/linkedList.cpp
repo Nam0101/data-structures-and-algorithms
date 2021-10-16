@@ -143,6 +143,48 @@ Node *reverseLinkedList(Node *head){
     }
     return prev;
 }
+Node *merge2LinkedList(Node *l1,Node *l2){
+    if(l1==NULL) return l2;
+    if(l2==NULL) return l1;
+    Node *final=NULL;
+    if(l1->data < l2->data){
+        final=l1;
+    }
+    else{
+        final=l2;
+    }
+    Node *p=final;
+    while(l1 && l2){
+        if(l1->data <l2->data){
+            p->next=l1;
+            l1=l1->next;
+        }
+        else{
+            p->next=l2;
+            l2=l2->next;
+        }
+    }
+    if(l1){
+        p->next=l1;
+    }
+    else{
+        p->next=l2;
+    }
+    return final; 
+}
+Node * sortLinkedList(Node *head){
+    if(head==NULL || head->next==NULL) return head;
+    /// break the linked list into two lists
+    Node *slow=head, *fast=head->next;
+    while(fast && fast->next){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    Node *n=slow->next;
+    slow->next=NULL;
+    sortLinkedList(head);
+    sortLinkedList(n);
+}
 int main() {
     int i,data;
     Node *head=takeInput();

@@ -103,7 +103,36 @@ Node *deleteAt(Node *head,int i){
     }
     head->next=head->next->next;
     return temp;
-
+}
+Node *merge2LinkedList(Node *l1,Node *l2){
+    if(l1==NULL) return l2;
+    if(l2==NULL) return l1;
+    Node *final=NULL;
+    if(l1->data < l2->data){
+        final=l1;
+    }
+    else{
+        final=l2;
+    }
+    Node *p=final;
+    while(l1 && l2){
+        if(l1->data <l2->data){
+            p->next=l1;
+            l1=l1->next;
+        }
+        else{
+            p->next=l2;
+            l2=l2->next;
+        }
+    }
+    if(l1){
+        p->next=l1;
+    }
+    else{
+        p->next=l2;
+    }
+    return final;
+     
 }
 int main() {
     int i,data;
