@@ -1,19 +1,14 @@
-#include <iostream>
-using namespace std;
+    #include<iostream>
+    using namespace std;
 
-class Stack{
-        int *arr;
+    class Stack{
+    int *arr;
     int nextIndex;
     int capacity;
 
     public:
         Stack(){
             capacity = 4;
-            arr = new int[capacity];
-            nextIndex = 0;
-        }
-        Stack(int cap){
-            capacity = cap;
             arr = new int[capacity];
             nextIndex = 0;
         }
@@ -31,8 +26,13 @@ class Stack{
         }
         void push(int ele){
             if(nextIndex==capacity){
-                cout<<"Stack full"<<endl;
-                return;
+                int *newArr = new int[2*capacity];
+                for(int i=0;i<capacity;i++){
+                    newArr[i] = arr[i];
+                }
+                delete []arr;
+                arr = newArr;
+                capacity = 2*capacity;
             }
             arr[nextIndex] = ele;
             nextIndex++;
@@ -51,11 +51,12 @@ class Stack{
             }
             return arr[nextIndex-1];
         }
-};
-int main(){
-        Stack s(4);
-        s.push(10);
-        s.push(20);
+    };
+
+    int main(){
+    Stack s;
+    s.push(10);
+    s.push(20);
     s.push(30);
     s.push(40);
     s.push(50);
@@ -71,17 +72,5 @@ int main(){
 
     cout<<s.size()<<endl;
     cout<<s.isEmpty()<<endl;
-
-    Stack s2(10);
-    for(int i=1;i<=10;i++){
-        s2.push(i);
-    }
-    /// print content of stack
-    while(!s2.isEmpty()){
-        cout<<s2.top()<<endl;
-        s2.pop();
-    }
-    cout<<s2.size()<<endl;
     return 0;
-
-}
+    }
