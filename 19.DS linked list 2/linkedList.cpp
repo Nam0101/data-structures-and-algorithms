@@ -182,15 +182,17 @@ Node * sortLinkedList(Node *head){
     }
     Node *n=slow->next;
     slow->next=NULL;
-    sortLinkedList(head);
-    sortLinkedList(n);
+    Node *a=sortLinkedList(head);
+    Node *b=sortLinkedList(n);
+    head=merge2LinkedList(a,b);
+    return head;
 }
 int main() {
     int i,data;
     Node *head=takeInput();
-    cin>>i;
     // head =insertAt(head,i,data);
-    head= deleteAt(head,i);
+    //Node *n=takeInput();
+    head=sortLinkedList(head);
     print(head);
     // cout<<endl<<endl;
     // cout<<length(head)<<endl;
