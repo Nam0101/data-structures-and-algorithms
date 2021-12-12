@@ -15,9 +15,9 @@ class Node{
 template<typename T>
 class Queue{
     Node<T>* head;
-    Node<T>* tail
+    Node<T>* tail;
     int size;
-    
+
   public:
     Queue(){
         head = NULL;
@@ -25,19 +25,37 @@ class Queue{
         size = 0;
     }
     int getSize(){
-    
+       return size;
     }
     bool isEmpty(){
-    
+       return size==0;
     }
     void push(T ele){
-    
+       Node<T>* n = new Node<T>(ele);
+       if(head==NULL){
+        head = n;
+        tail = n;
+       }else{
+         tail->next = n;
+         tail = n;
+       }
+       size++;
     }
     T front(){
-    
+       if(isEmpty()){
+        return 0;
+       }
+       return head->data;
     }
     void pop(){
-    
+       if(isEmpty()){
+        return;
+       }
+       Node<T>* temp = head;
+       head = head->next;
+       temp->next = NULL;
+       delete temp;
+       size--;
     }
 };
 int main(){
@@ -62,6 +80,13 @@ int main(){
  q.pop();
  q.pop();
  cout<<q.front()<<endl;
- cout<<q.getSize()<<endl; 
+ cout<<q.getSize()<<endl;
+
+ while(!q.isEmpty()){
+    cout<<q.front()<<endl;
+    q.pop();
+ }
+ cout<<q.getSize()<<endl;
+ cout<<q.isEmpty()<<endl;
    return 0;
 }
