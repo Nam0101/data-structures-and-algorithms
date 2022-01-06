@@ -187,13 +187,37 @@ Node * sortLinkedList(Node *head){
     head=merge2LinkedList(a,b);
     return head;
 }
+Node *pass(Node *h){
+    if(h==NULL) return NULL;
+    if(h->next==NULL) return h;
+    Node *pp=NULL;
+    Node *p=h;
+    Node *np=p->next;
+    while(np!= NULL){
+        if(p->data > np->data){
+            if(pp==NULL){
+                h=np;pp=h;
+            }else{
+                pp->next=np;
+            }
+            pp=np;p->next=np->next;
+            np->next=p;np=p->next;
+        }
+        else{
+            pp=p;p=np;np=np->next;
+        }
+    }
+    return h;
+}
 int main() {
     int i,data;
     Node *head=takeInput();
     // head =insertAt(head,i,data);
     //Node *n=takeInput();
-    head=sortLinkedList(head);
-    print(head);
+    //head=sortLinkedList(head);
+    Node *p=pass(head);
+    //head=pass(head);
+    print(p);
     // cout<<endl<<endl;
     // cout<<length(head)<<endl;
     // printAt(head,6);
